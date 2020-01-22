@@ -1,0 +1,19 @@
+version: "2.3"
+services:
+  pytest-bdd_cli:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: pytest-bdd_cli
+      # entrypoint: pytest-bdd_cli.py
+      # environment:
+        # - AWS_DEFAULT_REGION
+        # - AWS_ACCESS_KEY_ID
+        # - AWS_SECRET_ACCESS_KEY
+        # - AWS_PROFILE
+        # - AWS_SESSION_TOKEN
+        # - AWS_SECURITY_TOKEN
+      volumes:
+        - ${PWD}:/app/input
+        # - ~/.aws:/home/dev/.aws
+        # - ~/.ssh:/home/dev/.ssh

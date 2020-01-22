@@ -4,15 +4,15 @@ import subprocess
 import click
 
 @click.group()
-def pytest_bdd():
+def pytest_bdd_cli():
     """A set of tools to create and use pytest-bdd."""
 
 # pytest-bdd generate test/feature/establish_environment.feature
-@click.option('f', '--feature_file_spec', required=True, help='pathspec/full_filename of the feature file')
-@pytest_bdd.command()
-def pytest_from_gherkin(feature_file: str):
+@click.option('-f', '--feature_file_spec', required=True, help='pathspec/full_filename of the feature file')
+@pytest_bdd_cli.command()
+def pytest_from_gherkin(feature_file_spec: str):
     """Generate Python stubs from a Gherkins file"""
-    output = subprocess.check_output(['pytest_bdd', 'generate', ''.format(feature_file)])
+    output = subprocess.check_output(['pytest-bdd', 'generate', 'input/{}'.format(feature_file_spec)])
     click.echo('Generated stubs:')
     click.echo(output)
 
@@ -20,10 +20,11 @@ def pytest_from_gherkin(feature_file: str):
 
 # @click.option('-a', '--target_account', required=True, help='Root account in which to deploy the stack')
 # @click.option('-f', '--accounts_file', required=True, help='Path and name of file containing account details')
-# @pytest_bdd.command()
+# @pytest_bdd_cli.command()
 # def create_account(target_account: str, accounts_file: str):
 #     """Create an SSO account from parameters listed in a file."""
-#     click.echo('received {}, {}'.format(target_account, accounts_file))
+#     click.echo('received {}, {}'.format(targetpytest_bdd
+
 #     # Provision the inputs
 #     import subprocess
 #     response = sts_client.get_caller_identity(
@@ -40,14 +41,14 @@ def pytest_from_gherkin(feature_file: str):
 # @click.option('-s', '--surname', required=True, help='Surname of the user')
 # @click.option('-e', '--email', required=True, help='Email address of the user')
 # @click.option('-r', '--role', required=True, help='The role of the user, e.g. "Developer"')
-# @pytest_bdd.command()
+# @pytest_bdd_cli.command()
 # def create_user(first_name: str, surname: str, email: str, role: str ):
 #     """Create an SSO user."""
 #     click.echo('received {}, {}, {}, {}'.format(first_name, surname, email, role))
 
 
 # @click.option('-r', '--root_sso_email', required=True, help='Programmatically set the initial common root SSO email for this organisation, e.g. "aws+ct@domainename"')
-# @pytest_bdd.command()
+# @pytest_bdd_cli.command()
 # def configure(root_sso_email: str):
 #     """Script to configure common SSO requirements."""
 #     click.echo('received {}'.format(root_sso_email))
@@ -61,7 +62,7 @@ def pytest_from_gherkin(feature_file: str):
 #         click.echo('SSM put_parameter response is HTTPStatusCode: {}'.format(response['ResponseMetadata']['HTTPStatusCode']))
 
 
-# @pytest_bdd.command()
+# @pytest_bdd_cli.command()
 # def interactive_configure():
 #     """Interactively configure common SSO requirements."""
 #     response = sts_client.get_caller_identity()
@@ -73,7 +74,7 @@ def pytest_from_gherkin(feature_file: str):
 
 #     value = click.prompt('Please enter root_sso_email', default=configured_root_sso_email)
 
-#     if value != configured_root_sso_email:
+#     if value != configured_root_sso_email:pytest_bdd
 #         response = ssm_client.put_parameter(Name='root_sso_email', Value=value, Type='String', Overwrite=True)
 #         if '200' != '{}'.format(response['ResponseMetadata']['HTTPStatusCode']):
 #             click.echo('Failure! put_parameter response is: {}'.format(response))
@@ -85,4 +86,4 @@ def pytest_from_gherkin(feature_file: str):
 
 
 if __name__ == '__main__':
-    pytest_bdd(prog_name='pytest_bdd')
+    pytest_bdd_cli(prog_name='pytest-bdd_cli.py')
